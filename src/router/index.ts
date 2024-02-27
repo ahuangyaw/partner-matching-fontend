@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Index from '../views/IndexView.vue'
-import My from '../views/MyView.vue'
-import PartnerView from '../views/PartnerView.vue'
-import TeanView from '../views/TeamView.vue'
+import Index from '@/views/IndexView.vue'
+import My from '@/views/MyView.vue'
+import Partner from '@/views/PartnerView.vue'
+import Tean from '@/views/TeamView.vue'
+import Search from '@/views/SearchView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -24,12 +25,17 @@ const router = createRouter({
     {
       path: '/partner',
       name: 'partner',
-      component: PartnerView
+      component: Partner
     },
     {
       path: '/team',
       name: 'team',
-      component: TeanView
+      component: Tean
+    },
+    {
+      path: '/search',
+      name: 'tesearcham',
+      component: Search
     },
   ],
 })
