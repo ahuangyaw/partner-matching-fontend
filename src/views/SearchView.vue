@@ -29,7 +29,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
+//搜索内容
+const SearchText = ref('');
 //标签列表
 const originTagList = [
     {
@@ -55,29 +56,31 @@ const originTagList = [
     }
 ];
 
-const SearchText = ref('');
 //标签列表
 let tagList = ref(originTagList);
-const onSearch = () => {
-    tagList.value = originTagList.map(parentTag =>{
+/**
+ *  搜索过滤
+ * @param val
+ */
+const onSearch = (val) => {
+  tagList.value = originTagList.map(parentTag =>{
     const tempChildren =  [...parentTag.children];
     const tempParentTag =  {...parentTag};
     tempParentTag.children = tempChildren.filter(item => item.text.includes(SearchText.value))
     return tempParentTag;
-    })
-    
+  })
 };
-// 清空
+// 清空数据
 const onCancel = () => {
     SearchText.value = '';
     tagList.value = originTagList;
-    
 }
 
 const show = ref(true);
 // 默认选中
 const activeIds = ref([]);
 const activeIndex = ref(0);
+//关闭标签
 const close = (tag: never) => {
     activeIds.value.splice(activeIds.value.indexOf(tag), 1);
 }

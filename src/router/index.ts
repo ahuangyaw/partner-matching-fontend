@@ -1,43 +1,23 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
 import Index from '@/views/IndexView.vue'
-import My from '@/views/MyView.vue'
+import My from "@/views/MyView.vue";
 import Partner from '@/views/PartnerView.vue'
-import Tean from '@/views/TeamView.vue'
+import Team from '@/views/TeamView.vue'
 import Search from '@/views/SearchView.vue'
+import MyEdit from "@/views/MyEditView.vue";
 
 const router = createRouter({
-  history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/index',
-      redirect: '/'
-    },
-    {
-      path: '/',
-      name: 'index',
-      component: Index
-    },
-    {
-      path: '/my',
-      name: 'my',
-      component: My
-    },
-    {
-      path: '/partner',
-      name: 'partner',
-      component: Partner
-    },
-    {
-      path: '/team',
-      name: 'team',
-      component: Tean
-    },
-    {
-      path: '/search',
-      name: 'tesearcham',
-      component: Search
-    },
-  ],
+    history: createWebHashHistory(),
+    routes: [
+        {path: '/index', redirect: '/'},
+        {path: '/', component: Index},
+        {path: '/team', component: Team},
+        {path: '/partner', component: Partner},
+        {path: '/my',  component: My},
+        {path: '/search', component: Search},
+        {path: '/my/edit/:', component: MyEdit},
+
+    ],
 })
 
 export default router
