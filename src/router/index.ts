@@ -1,10 +1,11 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import Index from '@/views/IndexView.vue'
-import My from "@/views/MyView.vue";
-import Partner from '@/views/PartnerView.vue'
-import Team from '@/views/TeamView.vue'
-import Search from '@/views/SearchView.vue'
-import MyEdit from "@/views/MyEditView.vue";
+import Index from '@/views/index/IndexView.vue'
+import My from "@/views/index/MyView.vue";
+import Partner from '@/views/index/PartnerView.vue'
+import Team from '@/views/index/TeamView.vue'
+import Search from '@/views/search/SearchView.vue'
+import MyEdit from "@/views/My/MyEditView.vue";
+import SearchResult from "@/views/search/SearchResultView.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -16,6 +17,7 @@ const router = createRouter({
         {path: '/my',  component: My},
         {path: '/search', component: Search},
         {path: '/my/edit/:', component: MyEdit},
+        {path: '/my/list/:', component: SearchResult},
 
     ],
 })
