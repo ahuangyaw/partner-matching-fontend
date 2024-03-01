@@ -10,6 +10,10 @@
         </template>
     </van-nav-bar>
 
+  <div id="content">
+    <router-view/>
+  </div>
+
     <van-tabbar route @change="onChange">
     <van-tabbar-item to="/" icon="home-o" name="index">首页</van-tabbar-item>
     <van-tabbar-item to="/team" icon="search" name="team">队伍</van-tabbar-item>
@@ -32,5 +36,7 @@ const onChange = () => showToast();
 </script>
 
 <style scoped>
-
+#content {
+    padding-bottom: 60px;
+}
 </style>

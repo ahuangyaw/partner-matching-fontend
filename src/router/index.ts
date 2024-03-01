@@ -6,6 +6,7 @@ import Team from '@/views/index/TeamView.vue'
 import Search from '@/views/search/SearchView.vue'
 import MyEdit from "@/views/My/MyEditView.vue";
 import SearchResult from "@/views/search/SearchResultView.vue";
+import MyLogin from "@/views/My/MyLoginView.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -18,6 +19,7 @@ const router = createRouter({
         {path: '/search', component: Search},
         {path: '/my/edit/:', component: MyEdit},
         {path: '/my/list/:', component: SearchResult},
+        {path: '/my/login/:', component: MyLogin},
 
     ],
 })

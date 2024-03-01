@@ -37,15 +37,9 @@ const originTagList = [
   {
     text: '年级',
     children: [
-      { text: '大一', id: '大一' },
-      { text: '大二', id: '大二' },
-      { text: '大三', id: '大三' },
-      { text: '大一', id: '大4' },
-      { text: '大二', id: '大5' },
-      { text: '大三', id: '大6' },
-      { text: '大一', id: '大7' },
-      { text: '大二', id: '大8' },
-      { text: '大三', id: '大9' },
+      { text: '大一text', id: '大一id' },
+      { text: '大二text', id: '大二id' },
+      { text: '大三text', id: '大三id' },
     ],
   }
 ];
