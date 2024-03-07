@@ -1,18 +1,20 @@
-# Vue 3 + TypeScript + Vite
-
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support For `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 伙伴匹配系统
+伙伴匹配系统是基于 Vue 3 + Spring Boot 2 的移动端网站,前端用到了Vite + Vue3 + Vant4的全栈项目，实现用户管理、按标签检索用户、推荐相似用户、组队等功能。
+## 技术栈
+1. Vue 3
+2. Vite 脚手架
+3. Vant4 UI 移动端组件库
+4. Axios 请求库
+## 核心功能
+1. 用户注册和登录：用户可以通过注册账号并登录使用该网站。 √
+2. 标签匹配：用户可以选择自己的技能和需求标签，系统会根据标签匹配合适的队友。
+3. 组队功能：用户可以与其他用户组建队伍，一起参加校园竞赛。
+4. 帖文发布、点赞和关注：用户可以发布自己的帖文，其他用户可以对其进行点赞和关注，以便更好地了解和交流。
+5. 实时聊天：队伍中的用户可以进行实时聊天，方便沟通和协作。
+6. 用户管理：管理员可以对用户进行管理，包括审核用户信息和处理用户投诉等。
+## 目前已实现页面
+1. “我的”页面
+2. 首页展示推荐用户页面
+3. 注册页面
+4. 修改用户信息页面
+5. 搜索页面
