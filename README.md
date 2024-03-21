@@ -18,3 +18,5 @@
 3. 注册页面
 4. 修改用户信息页面
 5. 搜索页面
+
+![](https://github.com/ahuangyaw/partner-matching-fontend/blob/main/public/img_1.png)
