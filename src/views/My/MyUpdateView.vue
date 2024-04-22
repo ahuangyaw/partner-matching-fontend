@@ -13,7 +13,7 @@
     <van-cell title="编号" :value="user.planetCode" />
   </template>
   <div>
-    <van-button type="danger" size="large" >推出登录</van-button>
+    <van-button type="danger" size="large" @click="loginOut" >推出登录</van-button>
   </div>
 </template>
 
@@ -21,12 +21,16 @@
 import { getCurrentUser } from "@/service/user";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import Axios from "@/api/myAxios.ts";
+import {showFailToast, showSuccessToast} from "vant";
 
 
 const user = ref();
 
 onMounted(async () => {
   user.value = await getCurrentUser();
+  console.log(user.value);
+  user.value.gender = user.value.gender === 0 ? '男' : '女';
 })
 
 const router = useRouter();
@@ -39,6 +43,17 @@ const toEdit = (editKey: string, editName: string, currentValue: string) => {
       currentValue,
     }
   })
+}
+
+const loginOut = async () => {
+  const res = await Axios.post('user/logout');
+  if (res.data.code === 0){
+    showSuccessToast('退出登录成功')
+    await router.push('/my')
+  }else {
+    showFailToast('退出登录失败')
+  }
+
 }
 </script>
 

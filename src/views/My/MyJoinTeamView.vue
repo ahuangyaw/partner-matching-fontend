@@ -2,8 +2,7 @@
     <div id="teamPage">
       <van-pull-refresh v-model="loading" @refresh="onRefresh">
         <van-search v-model="searchText" placeholder="搜索队伍" @search="onSearch" />
-        <van-button type="primary" @click="doJoinTeam">添加队伍</van-button>
-        <team-card-list :teamList="teamList"></team-card-list>
+        <team-card-list :myJoinTeamList="myJoinTeamList" :teamList="teamList"></team-card-list>
         <van-empty v-if="!teamList || teamList.length < 1" description="找不到信息"/>
       </van-pull-refresh>
     </div>
@@ -28,31 +27,19 @@ const onRefresh = () => {
     loading.value = false;
     // 重新请求数据
     // 为给定 ID 的 user 创建请求
-    const res = await Axios.get('/team/list');
-    if (res?.data.code === 0){
-      teamList.value = res.data.data;
-      showSuccessToast('刷新成功');
-      console.log(res.data.data);
-    }else {
-      showFailToast('刷新失败')
-    }
+    listTeam;
+    showSuccessToast('刷新成功');
   }, 1500);
 };
 
-//  添加队伍
-const doJoinTeam = () => {
-  router.push({
-    path: '/team/add'
-  });
-}
-
 //  获取队伍列表
 const teamList = ref([]);
-console.log(teamList.value);
+
+const myJoinTeamList = ref([])
 
 //  搜索队伍
 const listTeam = async (val) => {
-  const res = await Axios.get('/team/list',{
+  const res = await Axios.get('team/list/my/join',{
     params:{
       searchText: val,
       pageNum:1
@@ -61,6 +48,26 @@ const listTeam = async (val) => {
   if (res?.data.code === 0){
     teamList.value = res.data.data;
   }else {
+    showFailToast("获取队伍列表失败")
+  }
+}
+
+/**
+ * 搜索我加入的队伍
+ * @param val
+ */
+const listMyJoinTeam = async (val) => {
+  const res = await Axios.get('team/list/my/join',{
+    params:{
+      searchText: val,
+      pageNum:1
+    }
+  });
+  if (res?.data.code === 0){
+    myJoinTeamList.value = res.data.data;
+  }else if (res?.data.code === 50000){
+    showFailToast("没有已加入的队伍")
+  } else {
     showFailToast("获取队伍列表失败")
   }
 }

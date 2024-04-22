@@ -1,60 +1,93 @@
-<template>
-  <van-card v-for="user in userList"
-            :desc="user.profile"
-            :title="`${user.username} (${user.planetCode})`"
-            :thumb="user.avatarUrl"
-  >
-    <template #tags>
-      <van-tag plain type="danger" v-for="tag in user.tags" style="margin-right: 8px; margin-top: 8px">
-        {{ tag }}
-      </van-tag>
-    </template>
-    <template #footer>
-      <van-button size="mini">联系我</van-button>
-    </template>
-  </van-card>
-  <van-empty v-if="!userList || userList.length < 1" description="找不到信息"/>
-</template>
+<template >
+  <van-pull-refresh v-model="loading" @refresh="onRefresh">
+    <van-cell center title="心动模式" >
+      <template #right-icon>
+        <van-switch v-model="isMode" />
+      </template>
+    </van-cell>
+    <user-card-list :user-list="userList" :loading="pageLoading"></user-card-list>
+    <van-empty v-if="!userList || userList.length < 1" description="找不到信息"/>
+  </van-pull-refresh>
+ </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import {useRoute} from "vue-router";
+import {onMounted, ref, watchEffect} from "vue";
 import {showFailToast, showSuccessToast} from "vant";
-
 import Axios from "@/api/myAxios.ts";
 
-import qs from 'qs'
+import UserCardList from "@/components/UserCardList.vue";
 
-const route = useRoute();
-const {tags} = route.query;
+
+const isMode = ref<boolean>(false);
+
+const pageLoading = ref<boolean>(false);
 
 const userList = ref([]);
-
-
-onMounted(async () => {
-  // 为给定 ID 的 user 创建请求
-  const userListData = await Axios.get('/user/recommend', {
-    params: {},
-  })
-      .then(function (response) {
-        console.log('/user/recommend succeed', response.data);
-        showSuccessToast('请求成功');
-        return response.data?.data;
-      })
-      .catch(function (error) {
-        console.log('/user/recommend error', error.data);
-        showFailToast('请求失败');
-      });
-  if (userListData) {
-    userListData.forEach((user) => {
-      if (user.tags) {
-        user.tags = JSON.parse(user.tags);
-      }
+const loadData = async () => {
+  pageLoading.value = false;
+  if (isMode.value){
+    const num = 8;
+    // 为给定 ID 的 user 创建请求
+    const userListData = await Axios.get('/user/match', {
+      params: {
+        num,
+      },
     })
-    userList.value = userListData;
+        .then(function (response) {
+          console.log('/user/match succeed', response.data);
+          return response.data?.data;
+        })
+        .catch(function (error) {
+          console.log('/user/match error', error.data);
+          showFailToast('请求失败');
+        });
+    if (userListData) {
+      userListData.forEach((user) => {
+        if (user.tags) {
+          user.tags = JSON.parse(user.tags);
+        }
+      })
+      userList.value = userListData;
+    }
+  }else {
+    const userListData = await Axios.get('/user/recommend', {
+      params: {
+        pageSize: 12,
+        pageNum: 1
+      },
+    })
+        .then(function (response) {
+          return response.data?.data?.records;
+        })
+        .catch(function (error) {
+          showFailToast('请求失败');
+        });
+    if (userListData) {
+      userListData.forEach((user) => {
+        if (user.tags) {
+          user.tags = JSON.parse(user.tags);
+        }
+      })
+      userList.value = userListData;
+    }
   }
+}
+
+watchEffect(() => {
+  loadData();
 })
 
-</script>
+// 页面刷新
+const loading = ref(false);
+const onRefresh = () => {
+  setTimeout(() => {
 
+    loading.value = false;
+    // 重新请求数据
+    // 为给定 ID 的 user 创建请求
+    loadData();
+  }, 1500);
+};
+
+</script>
 <style scoped></style>

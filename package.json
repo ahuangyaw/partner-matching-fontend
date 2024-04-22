@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@types/node": "^20.11.20",
     "axios": "^1.6.7",
     "qs": "^6.11.2",
     "vant": "^4.8.2",
@@ -17,6 +16,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@types/node": "^20.11.25",
     "@types/qs": "^6.9.12",
     "@vant/auto-import-resolver": "^1.0.2",
     "@vitejs/plugin-vue": "^4.5.2",

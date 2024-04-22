@@ -35,11 +35,6 @@
               :min-date="minDate"
           />
         </van-popup>
-        <van-field name="stepper" label="最大人数">
-          <template #input>
-            <van-stepper v-model="addTeamData.maxNum" max="10" min="3"/>
-          </template>
-        </van-field>
         <van-field name="radio" label="队伍状态">
           <template #input>
             <van-radio-group v-model="addTeamData.status" direction="horizontal">
@@ -70,10 +65,11 @@
 
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import {showFailToast, showSuccessToast, Toast} from "vant";
-import router from "@/router";
+import router from "@/router/route.ts";
 import myAxios from "@/api/myAxios.ts";
+import {useRoute} from "vue-router";
 
 const initFormData = {
   "name": "",
@@ -84,13 +80,38 @@ const initFormData = {
   "status": 0,
   "userId": 0
 }
-const addTeamData = ref({...initFormData});
+const addTeamData = ref(initFormData);
+
 
 // 展示日期选择器
 const minDate = new Date();
 minDate.setDate(minDate.getDate() + 1);
 const result = ref('');
 const showPicker = ref(false);
+
+const route = useRoute();
+const id = route.query.id;
+
+
+onMounted(async () =>{
+  if (id <= 0 || id == null){
+    showFailToast("加载队伍失败")
+    return;
+  }
+  const res = await myAxios.get("/team/get",{
+    params:{
+      id:id,
+    }
+  });
+  if (res.data.code === 0){
+    addTeamData.value = res.data.data;
+  }else {
+    showFailToast("获取队伍列表失败")
+  }
+})
+
+
+
 const onConfirm = ({ selectedValues }) => {
   result.value = selectedValues.join('-');
   showPicker.value = false;
@@ -104,15 +125,15 @@ const onSubmit = async () => {
     status: Number(addTeamData.value.status)
   }
   //todo 前端数据校验
-  const res = await myAxios.post("/team/add",postData);
+  const res = await myAxios.post("/team/update",postData);
   if (res?.data.code === 0 && res.data){
-    showSuccessToast("添加成功");
+    showSuccessToast("更新成功");
     await router.push({
       path: '/team',
       replace: true,
     });
   }else {
-    showFailToast("添加失败")
+    showFailToast("更新失败")
   }
 }
 

@@ -1,18 +1,19 @@
+import {UserType} from "@/mdoels/user";
+
 /**
  * 用户类别
  */
-export type USerType = {
+export type TeamType = {
     id: number;
-    username: string;
-    user_account: string;
-    avatarUrl?: string;
-    gender: number;
-    profile ?: string;
-    phone: string;
-    email: string;
-    userStatus: number;
-    userRole: number;
-    planetCode: string;
-    tags:string[];
+    name: string;
+    description: string;
+    expireTime?: string;
+    maxNum: number;
+    password: string;
+    createUser?:UserType;
+    status: number;
     createTime: Date;
+    updateTime: Date;
+    hasJoin:boolean
+    joinNum:number
 }

@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import myAxios from '@/api/myAxios';
-import router from '@/router';
+import router from '@/router/route.ts';
 import { showFailToast, showSuccessToast } from 'vant';
 import { ref } from 'vue';
 
@@ -27,13 +27,11 @@ const onSubmit = async () => {
         userAccount: userAccount.value,
         userPassword: userPassword.value,
     })
-    console.log(res, "用户登录");
-    showSuccessToast('登录成功');
-    if (res.data.code === 0 && res.data) {
+    if (res.data.code === 0 && res.data.data) {
         showSuccessToast('登录成功');
-        router.replace('/')
+        await router.push('/my')
     } else {
-        showFailToast('登录失败');
+        showFailToast('登录失败,\n请重新尝试');
     }
 
 

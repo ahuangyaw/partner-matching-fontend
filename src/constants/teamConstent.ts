@@ -1,9 +1,5 @@
 export const teamStatusEnum = {
-
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
-  PENDING: 'pending',
-  REJECTED: 'rejected',
-  EXPIRED: 'expired',
-  DELETED: 'deleted',
+  0: '公开',
+  1: '私有',
+  2: '加密'
 }
